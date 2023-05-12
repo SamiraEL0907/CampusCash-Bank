@@ -69,6 +69,7 @@
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(125, 27);
             txtEmail.TabIndex = 3;
+            txtEmail.UseSystemPasswordChar = true;
             // 
             // txtPassword
             // 
@@ -89,7 +90,6 @@
             Controls.Add(btnLogin);
             Name = "LoginForm";
             Text = "Form2";
-          
             ResumeLayout(false);
             PerformLayout();
         }
