@@ -1,0 +1,10 @@
+C:\Users\elbou\source\repos\CampusCashBank\obj\Debug\net7.0-windows\CampusCashBank.csproj.AssemblyReference.cache
+C:\Users\elbou\source\repos\CampusCashBank\obj\Debug\net7.0-windows\CampusCashBank.AdminForm.resources
+C:\Users\elbou\source\repos\CampusCashBank\obj\Debug\net7.0-windows\CampusCashBank.LoginForm.resources
+C:\Users\elbou\source\repos\CampusCashBank\obj\Debug\net7.0-windows\CampusCashBank.SignupForm.resources
+C:\Users\elbou\source\repos\CampusCashBank\obj\Debug\net7.0-windows\CampusCashBank.StartForm.resources
+C:\Users\elbou\source\repos\CampusCashBank\obj\Debug\net7.0-windows\CampusCashBank.csproj.GenerateResource.cache
+C:\Users\elbou\source\repos\CampusCashBank\obj\Debug\net7.0-windows\CampusCashBank.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\elbou\source\repos\CampusCashBank\obj\Debug\net7.0-windows\CampusCashBank.AssemblyInfoInputs.cache
+C:\Users\elbou\source\repos\CampusCashBank\obj\Debug\net7.0-windows\CampusCashBank.AssemblyInfo.cs
+C:\Users\elbou\source\repos\CampusCashBank\obj\Debug\net7.0-windows\CampusCashBank.csproj.CoreCompileInputs.cache
