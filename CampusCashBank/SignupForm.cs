@@ -39,7 +39,7 @@ namespace CampusCashBank
             this.Close();
         }
 
-     
+
         private void button1_Click(object sender, EventArgs e)
         {
             LoginForm loginForm = new LoginForm();
@@ -47,6 +47,9 @@ namespace CampusCashBank
             this.Close();
         }
 
+        private void SignupForm_Load(object sender, EventArgs e)
+        {
 
+        }
     }
 }

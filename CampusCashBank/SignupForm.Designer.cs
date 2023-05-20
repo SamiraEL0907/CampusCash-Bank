@@ -141,6 +141,7 @@
             Controls.Add(FirstName);
             Name = "SignupForm";
             Text = "SignupForm";
+            Load += SignupForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }

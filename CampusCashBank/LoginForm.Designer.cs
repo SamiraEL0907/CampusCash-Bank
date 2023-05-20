@@ -69,7 +69,6 @@
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(125, 27);
             txtEmail.TabIndex = 3;
-            txtEmail.UseSystemPasswordChar = true;
             // 
             // txtPassword
             // 
@@ -77,6 +76,7 @@
             txtPassword.Name = "txtPassword";
             txtPassword.Size = new Size(125, 27);
             txtPassword.TabIndex = 4;
+            txtPassword.UseSystemPasswordChar = true;
             // 
             // LoginForm
             // 
@@ -90,6 +90,7 @@
             Controls.Add(btnLogin);
             Name = "LoginForm";
             Text = "Form2";
+          
             ResumeLayout(false);
             PerformLayout();
         }
@@ -101,5 +102,6 @@
         private Label label2;
         private TextBox txtEmail;
         private TextBox txtPassword;
+        private FlowLayoutPanel flowLayoutPanel1;
     }
 }

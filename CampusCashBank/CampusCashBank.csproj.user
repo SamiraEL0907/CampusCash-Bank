@@ -7,9 +7,6 @@
     <Compile Update="TransferForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="HomeForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="SignupForm.cs">
       <SubType>Form</SubType>
     </Compile>

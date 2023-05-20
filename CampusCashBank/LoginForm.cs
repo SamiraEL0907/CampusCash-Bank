@@ -22,12 +22,12 @@ namespace CampusCashBank
             string email = txtEmail.Text;
             string password = txtPassword.Text;
 
-            Database db = new Database();
-            if (db.ValidateUser(email, password))
+            Users user = new Users();
+            if (user.ValidateUser(email, password))
             {
                 // Login successful
-                HomeForm homeForm = new HomeForm();
-                homeForm.Show();
+                AccountsForm accountsForm = new AccountsForm(user); // Pass the user object to the AccountsForm
+                accountsForm.Show();
                 this.Hide();
             }
             else
@@ -38,6 +38,6 @@ namespace CampusCashBank
             }
         }
 
-
+    
     }
 }

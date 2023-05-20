@@ -13,13 +13,20 @@ namespace CampusCashBank
     {
         [Key]
         public int AccountID { get; set; }
-
-        [ForeignKey("User")]
         public int UserID { get; set; }
-        public User User { get; set; }
-
         public string AccountName { get; set; }
-        public decimal Balance { get; set; }
-        public decimal NegativeLimit { get; set; }
+        public decimal Balance { get; set; } 
+        public decimal? NegativeLimit { get; set; }
+
+        public List<Transaction> GetTransactionHistory()
+        {
+            Database db = new Database();
+            return db.GetTransactionHistory(this.AccountID);
+        }
+
+
     }
+
+
+
 }

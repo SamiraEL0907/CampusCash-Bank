@@ -10,18 +10,20 @@ namespace CampusCashBank
 {
     public class Transaction
     {
-        [Key]
         public int TransactionID { get; set; }
-
-        [ForeignKey("SenderAccount")]
-        public int SenderAccountID { get; set; }
-        public Account SenderAccount { get; set; }
-
-        [ForeignKey("ReceiverAccount")]
-        public int ReceiverAccountID { get; set; }
-        public Account ReceiverAccount { get; set; }
-
+        public bool IsSender { get; set; }
+        public int OtherPartyID { get; set; }
         public decimal Amount { get; set; }
         public DateTime Timestamp { get; set; }
+
+        public Transaction(int transactionID, bool isSender, int otherPartyID, decimal amount, DateTime timestamp)
+        {
+            TransactionID = transactionID;
+            IsSender = isSender;
+            OtherPartyID = otherPartyID;
+            Amount = amount;
+            Timestamp = timestamp;
+        }
     }
+
 }

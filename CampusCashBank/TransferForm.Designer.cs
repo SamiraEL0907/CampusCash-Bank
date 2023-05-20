@@ -28,57 +28,80 @@
         /// </summary>
         private void InitializeComponent()
         {
-            HomeButton = new Button();
-            transferButton = new Button();
-            AccountButton = new Button();
+            dgvTransactionHistory = new DataGridView();
+            TransactionID = new DataGridViewTextBoxColumn();
+            OtherPartyID = new DataGridViewTextBoxColumn();
+            Sent = new DataGridViewTextBoxColumn();
+            Received = new DataGridViewTextBoxColumn();
+            Timestamp = new DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)dgvTransactionHistory).BeginInit();
             SuspendLayout();
             // 
-            // HomeButton
+            // dgvTransactionHistory
             // 
-            HomeButton.Location = new Point(146, 54);
-            HomeButton.Name = "HomeButton";
-            HomeButton.Size = new Size(94, 29);
-            HomeButton.TabIndex = 0;
-            HomeButton.Text = "Home";
-            HomeButton.UseVisualStyleBackColor = true;
-            HomeButton.Click += HomeButton_Click;
+            dgvTransactionHistory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvTransactionHistory.Columns.AddRange(new DataGridViewColumn[] { TransactionID, OtherPartyID, Sent, Received, Timestamp });
+            dgvTransactionHistory.Location = new Point(12, 115);
+            dgvTransactionHistory.Name = "dgvTransactionHistory";
+            dgvTransactionHistory.RowHeadersWidth = 51;
+            dgvTransactionHistory.RowTemplate.Height = 29;
+            dgvTransactionHistory.Size = new Size(775, 582);
+            dgvTransactionHistory.TabIndex = 0;
             // 
-            // transferButton
+            // TransactionID
             // 
-            transferButton.Location = new Point(305, 54);
-            transferButton.Name = "transferButton";
-            transferButton.Size = new Size(94, 29);
-            transferButton.TabIndex = 1;
-            transferButton.Text = "Transfers";
-            transferButton.UseVisualStyleBackColor = true;
+            TransactionID.HeaderText = "TransactionID";
+            TransactionID.MinimumWidth = 6;
+            TransactionID.Name = "TransactionID";
+            TransactionID.Width = 125;
             // 
-            // AccountButton
+            // OtherPartyID
             // 
-            AccountButton.Location = new Point(471, 54);
-            AccountButton.Name = "AccountButton";
-            AccountButton.Size = new Size(94, 29);
-            AccountButton.TabIndex = 2;
-            AccountButton.Text = "Accounts";
-            AccountButton.UseVisualStyleBackColor = true;
-            AccountButton.Click += AccountButton_Click;
+            OtherPartyID.HeaderText = "OtherPartyID";
+            OtherPartyID.MinimumWidth = 6;
+            OtherPartyID.Name = "OtherPartyID";
+            OtherPartyID.Width = 125;
+            // 
+            // Sent
+            // 
+            Sent.HeaderText = "Sent";
+            Sent.MinimumWidth = 6;
+            Sent.Name = "Sent";
+            Sent.Width = 125;
+            // 
+            // Received
+            // 
+            Received.HeaderText = "Received";
+            Received.MinimumWidth = 6;
+            Received.Name = "Received";
+            Received.Width = 125;
+            // 
+            // Timestamp
+            // 
+            Timestamp.HeaderText = "Timestamp";
+            Timestamp.MinimumWidth = 6;
+            Timestamp.Name = "Timestamp";
+            Timestamp.Width = 125;
             // 
             // TransferForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(AccountButton);
-            Controls.Add(transferButton);
-            Controls.Add(HomeButton);
+            ClientSize = new Size(1553, 709);
+            Controls.Add(dgvTransactionHistory);
             Name = "TransferForm";
             Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)dgvTransactionHistory).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Button HomeButton;
-        private Button transferButton;
-        private Button AccountButton;
+        private DataGridView dgvTransactionHistory;
+        private DataGridViewTextBoxColumn TransactionID;
+        private DataGridViewTextBoxColumn OtherPartyID;
+        private DataGridViewTextBoxColumn Sent;
+        private DataGridViewTextBoxColumn Received;
+        private DataGridViewTextBoxColumn Timestamp;
     }
 }

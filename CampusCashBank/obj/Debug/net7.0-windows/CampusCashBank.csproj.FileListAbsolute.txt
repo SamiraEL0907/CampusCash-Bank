@@ -45,7 +45,6 @@ C:\Users\elbou\source\repos\CampusCashBank\CampusCashBank\bin\Debug\net7.0-windo
 C:\Users\elbou\source\repos\CampusCashBank\CampusCashBank\obj\Debug\net7.0-windows\CampusCashBank.csproj.AssemblyReference.cache
 C:\Users\elbou\source\repos\CampusCashBank\CampusCashBank\obj\Debug\net7.0-windows\CampusCashBank.AccountsForm.resources
 C:\Users\elbou\source\repos\CampusCashBank\CampusCashBank\obj\Debug\net7.0-windows\CampusCashBank.AdminForm.resources
-C:\Users\elbou\source\repos\CampusCashBank\CampusCashBank\obj\Debug\net7.0-windows\CampusCashBank.HomeForm.resources
 C:\Users\elbou\source\repos\CampusCashBank\CampusCashBank\obj\Debug\net7.0-windows\CampusCashBank.LoginForm.resources
 C:\Users\elbou\source\repos\CampusCashBank\CampusCashBank\obj\Debug\net7.0-windows\CampusCashBank.SignupForm.resources
 C:\Users\elbou\source\repos\CampusCashBank\CampusCashBank\obj\Debug\net7.0-windows\CampusCashBank.StartForm.resources

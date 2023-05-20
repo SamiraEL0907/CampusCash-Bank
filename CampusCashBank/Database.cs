@@ -81,25 +81,174 @@ namespace CampusCashBank
         }
 
 
-        public bool ValidateUser(string email, string password) 
+        public string GetPasswordByEmail(string email)
         {
             OpenConnection();
             string query = "SELECT Password FROM Users WHERE Email = @Email";
             MySqlCommand cmd = new MySqlCommand(query, connection);
             cmd.Parameters.AddWithValue("@Email", email);
             MySqlDataReader reader = cmd.ExecuteReader();
-
-            bool isValidUser = false;
+            string storedPassword = null;
             if (reader.Read())
             {
-                string storedPassword = reader.GetString("Password");
-                // Use the BCrypt Verify method to compare the provided password with the stored password
-                isValidUser = BCrypt.Net.BCrypt.Verify(password, storedPassword);
+                storedPassword = reader.GetString("Password");
             }
             reader.Close();
             CloseConnection();
-            return isValidUser;
+            return storedPassword;
         }
+
+        public Users GetUserByEmail(string email)
+        {
+            Users user = null;
+            string query = "SELECT * FROM Users WHERE Email = @Email";
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@Email", email);
+            connection.Open();
+            MySqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                user = new Users();
+                user.UserID = reader.GetInt32(reader.GetOrdinal("UserID"));
+                user.Email = reader.GetString(reader.GetOrdinal("Email"));
+                user.Password = reader.GetString(reader.GetOrdinal("Password"));
+                user.FirstName = reader.GetString(reader.GetOrdinal("FirstName"));
+                user.LastName = reader.GetString(reader.GetOrdinal("LastName"));
+                user.ProfilePicture = reader.GetString(reader.GetOrdinal("ProfilePicture"));
+            }
+            reader.Close();
+            connection.Close();
+            return user;
+        }
+
+
+        public List<Account> GetAccountsByUserID(int userID)
+        {
+            List<Account> accounts = new List<Account>();
+
+            string query = "SELECT * FROM Accounts WHERE UserID = @UserID";
+
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@UserID", userID);
+
+            connection.Open();
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Account account = new Account();
+                account.AccountID = reader.GetInt32(reader.GetOrdinal("AccountID"));
+                account.UserID = reader.GetInt32(reader.GetOrdinal("UserID"));
+                account.AccountName = reader.GetString(reader.GetOrdinal("AccountName"));
+                account.Balance = reader.GetDecimal(reader.GetOrdinal("Balance"));
+                if (!reader.IsDBNull(reader.GetOrdinal("NegativeLimit")))
+                {
+                    account.NegativeLimit = reader.GetDecimal(reader.GetOrdinal("NegativeLimit"));
+                }
+                accounts.Add(account);
+            }
+
+            reader.Close();
+            connection.Close();
+
+            return accounts;
+        }
+
+        public bool AddAccount(int userId, string accountName, decimal balance, decimal? negativeLimit)
+        {
+            string query = "INSERT INTO Accounts (UserID, AccountName, Balance, NegativeLimit) VALUES (@UserID, @AccountName, @Balance, @NegativeLimit)";
+
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@UserID", userId);
+            cmd.Parameters.AddWithValue("@AccountName", accountName);
+            cmd.Parameters.AddWithValue("@Balance", balance);
+            if (negativeLimit.HasValue)
+            {
+                cmd.Parameters.AddWithValue("@NegativeLimit", negativeLimit.Value);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@NegativeLimit", DBNull.Value);
+            }
+
+            connection.Open();
+
+            int rowsAffected = cmd.ExecuteNonQuery();
+
+            connection.Close();
+
+            return rowsAffected > 0;
+        }
+
+        public Account GetAccountById(int accountId)
+        {
+            Account account = null;
+
+            string query = "SELECT * FROM Accounts WHERE AccountID = @AccountID";
+
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@AccountID", accountId);
+
+            connection.Open();
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+            {
+                account = new Account();
+                account.AccountID = reader.GetInt32(reader.GetOrdinal("AccountID"));
+                account.UserID = reader.GetInt32(reader.GetOrdinal("UserID"));
+                account.AccountName = reader.GetString(reader.GetOrdinal("AccountName"));
+                account.Balance = reader.GetDecimal(reader.GetOrdinal("Balance"));
+                if (!reader.IsDBNull(reader.GetOrdinal("NegativeLimit")))
+                {
+                    account.NegativeLimit = reader.GetDecimal(reader.GetOrdinal("NegativeLimit"));
+                }
+            }
+
+            reader.Close();
+            connection.Close();
+
+            return account;
+        }
+
+        public List<Transaction> GetTransactionHistory(int accountId)
+        {
+            List<Transaction> transactions = new List<Transaction>();
+
+            OpenConnection();
+
+            string query = "SELECT * FROM Transactions WHERE SenderAccountID = @accountId OR ReceiverAccountID = @accountId";
+
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@accountId", accountId);
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                bool isSender = reader.GetInt32(reader.GetOrdinal("SenderAccountID")) == accountId;
+
+                Transaction transaction = new Transaction(
+                    reader.GetInt32(reader.GetOrdinal("TransactionID")),
+                    isSender,
+                    isSender ? reader.GetInt32(reader.GetOrdinal("ReceiverAccountID")) : reader.GetInt32(reader.GetOrdinal("SenderAccountID")),
+                    reader.GetDecimal(reader.GetOrdinal("Amount")),
+                    reader.GetDateTime(reader.GetOrdinal("Timestamp"))
+                );
+
+                transactions.Add(transaction);
+            }
+
+            reader.Close();
+            CloseConnection();
+
+            return transactions;
+        }
+
+
+
 
 
 

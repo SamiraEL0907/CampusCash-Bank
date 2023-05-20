@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,23 +13,48 @@ namespace CampusCashBank
 {
     public partial class TransferForm : Form
     {
-        public TransferForm()
+
+        private int _accountId;
+        private Account _currentAccount;
+        private Users _user; // Add this line
+
+        public TransferForm(Users user, int accountId) // Modify the constructor to accept a Users object
         {
             InitializeComponent();
+
+            _accountId = accountId;
+            _user = user; // Initialize the _user field
+
+            // Use the _user field to get the account
+            _currentAccount = _user.GetAccountById(accountId);
+
+            this.Load += TransferForm_Load;
         }
 
-        private void AccountButton_Click(object sender, EventArgs e)
+        private void TransferForm_Load(object sender, EventArgs e)
         {
-            AccountsForm accountsForm = new AccountsForm();
-            accountsForm.Show();
-            this.Hide();
+            LoadTransactionHistory();
         }
 
-        private void HomeButton_Click(object sender, EventArgs e)
+        private void LoadTransactionHistory()
         {
-            HomeForm homeForm = new HomeForm();
-            homeForm.Show();
-            this.Hide();
+            List<Transaction> transactionHistory = _currentAccount.GetTransactionHistory();
+
+            // Clear the DataGridView
+            dgvTransactionHistory.Rows.Clear();
+
+            // For each transaction in the history, add a new row to the DataGridView
+            foreach (Transaction transaction in transactionHistory)
+            {
+                int index = dgvTransactionHistory.Rows.Add();
+                DataGridViewRow row = dgvTransactionHistory.Rows[index];
+
+                row.Cells["TransactionID"].Value = transaction.TransactionID;
+                row.Cells["OtherPartyID"].Value = transaction.OtherPartyID;
+                row.Cells["Sent"].Value = transaction.IsSender ? transaction.Amount : (decimal?)null;
+                row.Cells["Received"].Value = !transaction.IsSender ? transaction.Amount : (decimal?)null;
+                row.Cells["Timestamp"].Value = transaction.Timestamp;
+            }
         }
     }
 }
