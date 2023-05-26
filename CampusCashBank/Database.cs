@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Security.Cryptography;
+using System.Data;
 using System.Text;
 
 
@@ -233,6 +234,7 @@ namespace CampusCashBank
                 Transaction transaction = new Transaction(
                     reader.GetInt32(reader.GetOrdinal("TransactionID")),
                     isSender,
+                    reader.GetInt32(reader.GetOrdinal("SenderAccountID")),
                     isSender ? reader.GetInt32(reader.GetOrdinal("ReceiverAccountID")) : reader.GetInt32(reader.GetOrdinal("SenderAccountID")),
                     reader.GetDecimal(reader.GetOrdinal("Amount")),
                     reader.GetDateTime(reader.GetOrdinal("Timestamp"))
@@ -246,6 +248,141 @@ namespace CampusCashBank
 
             return transactions;
         }
+
+
+        public bool UpdateAccount(Account account)
+        {
+            try
+            {
+                OpenConnection();
+
+                string query = "UPDATE Accounts SET Balance = @Balance WHERE AccountID = @AccountID";
+
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@AccountID", account.AccountID);
+                cmd.Parameters.AddWithValue("@Balance", account.Balance);
+
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                CloseConnection();
+
+                return rowsAffected > 0;
+            }
+            catch (Exception e)
+            {
+                // Handle the exception
+                CloseConnection();
+                return false;
+            }
+        }
+
+        public bool AddTransaction(Transaction transaction)
+        {
+            try
+            {
+                OpenConnection();
+
+                string query = "INSERT INTO Transactions (SenderAccountID, ReceiverAccountID, Amount, Timestamp) VALUES (@SenderAccountID, @ReceiverAccountID, @Amount, @Timestamp)";
+
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@SenderAccountID", transaction.SenderAccountID);
+                cmd.Parameters.AddWithValue("@ReceiverAccountID", transaction.OtherPartyID);
+                cmd.Parameters.AddWithValue("@Amount", transaction.Amount);
+                cmd.Parameters.AddWithValue("@Timestamp", transaction.Timestamp);
+
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                CloseConnection();
+
+                return rowsAffected > 0;
+            }
+            catch (Exception e)
+            {
+                // Log the exception message to the debug console
+                System.Diagnostics.Debug.WriteLine(e.Message);
+                CloseConnection();
+                return false;
+            }
+
+        }
+
+        public Admin GetAdminByEmail(string email)
+        {
+            try
+            {
+                OpenConnection();
+
+                string query = "SELECT * FROM Admins WHERE Email = @Email";
+
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@Email", email);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    Admin admin = new Admin(
+                        reader.GetInt32(reader.GetOrdinal("AdminID")),
+                        reader.GetString(reader.GetOrdinal("Email")),
+                        reader.GetString(reader.GetOrdinal("Password"))
+                    );
+
+                    reader.Close();
+                    CloseConnection();
+
+                    return admin;
+                }
+                else
+                {
+                    reader.Close();
+                    CloseConnection();
+
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                // Handle the exception
+                CloseConnection();
+                return null;
+            }
+        }
+
+
+        public DataTable GetUsers()
+        {
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            string query = "SELECT UserID, Email, FirstName, LastName FROM Users";
+
+            MySqlCommand command = new MySqlCommand(query, connection);
+            connection.Open();
+
+            MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+            DataTable dataTable = new DataTable();
+            adapter.Fill(dataTable);
+
+            connection.Close();
+            return dataTable;
+        }
+
+        public DataTable GetAccountsDataTableByUserID(int userID)
+        {
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            string query = "SELECT * FROM Account WHERE UserID = @userID";
+
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@userID", userID);
+
+            connection.Open();
+
+            MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+            DataTable dataTable = new DataTable();
+            adapter.Fill(dataTable);
+
+            connection.Close();
+            return dataTable;
+        }
+
 
 
 

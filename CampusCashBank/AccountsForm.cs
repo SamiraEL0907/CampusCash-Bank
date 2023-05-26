@@ -72,6 +72,10 @@ namespace CampusCashBank
 
             // Open the TransferForm for the selected account
             TransferForm transferForm = new TransferForm(_currentUser, accountId);
+
+            // Set the Owner property of the TransferForm to this form
+            transferForm.Owner = this;
+
             transferForm.Show();
         }
 
@@ -84,8 +88,17 @@ namespace CampusCashBank
                 int accountId = (int)selectedItem.Tag;
 
                 TransferForm transferForm = new TransferForm(_currentUser, accountId);
+
+                // Set the Owner property of the TransferForm to this form
+                transferForm.Owner = this;
+
                 transferForm.Show();
             }
+        }
+
+        public void RefreshAccounts()
+        {
+            LoadAccounts();
         }
 
 

@@ -30,74 +30,82 @@
         {
             loginButton = new Button();
             signupButton = new Button();
-            adminButton = new Button();
-            btnTestConnection = new Button();
+            adminSignUpButton = new Button();
+            label1 = new Label();
             SuspendLayout();
             // 
             // loginButton
             // 
-            loginButton.Location = new Point(417, 135);
+            loginButton.BackColor = SystemColors.ButtonHighlight;
+            loginButton.Font = new Font("SimSun", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            loginButton.Location = new Point(440, 125);
             loginButton.Margin = new Padding(4, 5, 4, 5);
             loginButton.Name = "loginButton";
-            loginButton.Size = new Size(100, 35);
+            loginButton.Size = new Size(159, 52);
             loginButton.TabIndex = 0;
             loginButton.Text = "Log in";
-            loginButton.UseVisualStyleBackColor = true;
+            loginButton.UseVisualStyleBackColor = false;
             loginButton.Click += loginButton_Click;
             // 
             // signupButton
             // 
-            signupButton.Location = new Point(417, 207);
+            signupButton.BackColor = SystemColors.ButtonHighlight;
+            signupButton.Font = new Font("SimSun", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            signupButton.Location = new Point(440, 216);
             signupButton.Margin = new Padding(4, 5, 4, 5);
             signupButton.Name = "signupButton";
-            signupButton.Size = new Size(100, 35);
+            signupButton.Size = new Size(159, 56);
             signupButton.TabIndex = 1;
             signupButton.Text = "Sign up";
-            signupButton.UseVisualStyleBackColor = true;
+            signupButton.UseVisualStyleBackColor = false;
             signupButton.Click += signupButton_Click;
             // 
-            // adminButton
+            // adminSignUpButton
             // 
-            adminButton.Location = new Point(417, 283);
-            adminButton.Margin = new Padding(4, 5, 4, 5);
-            adminButton.Name = "adminButton";
-            adminButton.Size = new Size(100, 35);
-            adminButton.TabIndex = 2;
-            adminButton.Text = "Admin";
-            adminButton.UseVisualStyleBackColor = true;
-            adminButton.Click += adminButton_Click;
+            adminSignUpButton.BackColor = SystemColors.ButtonHighlight;
+            adminSignUpButton.Font = new Font("SimSun", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            adminSignUpButton.Location = new Point(440, 303);
+            adminSignUpButton.Margin = new Padding(4, 5, 4, 5);
+            adminSignUpButton.Name = "adminSignUpButton";
+            adminSignUpButton.Size = new Size(159, 52);
+            adminSignUpButton.TabIndex = 2;
+            adminSignUpButton.Text = "Admin";
+            adminSignUpButton.UseVisualStyleBackColor = false;
+            adminSignUpButton.Click += adminSignUpButton_Click;
             // 
-            // btnTestConnection
+            // label1
             // 
-            btnTestConnection.Location = new Point(12, 12);
-            btnTestConnection.Name = "btnTestConnection";
-            btnTestConnection.Size = new Size(232, 29);
-            btnTestConnection.TabIndex = 4;
-            btnTestConnection.Text = "Database connection";
-            btnTestConnection.UseVisualStyleBackColor = true;
-            btnTestConnection.Click += btnTestConnection_Click;
+            label1.AutoSize = true;
+            label1.Font = new Font("Bahnschrift Condensed", 22.2F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point);
+            label1.Location = new Point(335, 26);
+            label1.Name = "label1";
+            label1.Size = new Size(393, 45);
+            label1.TabIndex = 3;
+            label1.Text = "Welcome to CampusCash-Bank";
             // 
             // StartForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(1067, 692);
-            Controls.Add(btnTestConnection);
-            Controls.Add(adminButton);
+            Controls.Add(label1);
+            Controls.Add(adminSignUpButton);
             Controls.Add(signupButton);
             Controls.Add(loginButton);
             Margin = new Padding(4, 5, 4, 5);
             Name = "StartForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form1";
+            Text = "StartForm";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private System.Windows.Forms.Button loginButton;
         private System.Windows.Forms.Button signupButton;
-        private System.Windows.Forms.Button adminButton;
-        private Button btnTestConnection;
+        private System.Windows.Forms.Button adminSignUpButton;
+        private Label label1;
     }
 }

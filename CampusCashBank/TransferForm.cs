@@ -56,5 +56,43 @@ namespace CampusCashBank
                 row.Cells["Timestamp"].Value = transaction.Timestamp;
             }
         }
+
+        private void btnSend_Click(object sender, EventArgs e)
+        {
+
+            // Parse the receiver account ID and the amount from the text boxes
+            int receiverAccountId = int.Parse(txtReceiverAccountId.Text);
+            decimal amount = decimal.Parse(txtAmount.Text);
+
+            // Create a new transaction and perform it
+            Transaction transaction = new Transaction();
+            bool success = transaction.PerformTransaction(_accountId, receiverAccountId, amount, this);
+
+
+
+            if (success)
+            {
+                // The transaction was successful, reload the transaction history
+                LoadTransactionHistory();
+
+                // Display success message
+                MessageBox.Show("Transaction completed successfully!");
+
+                // Update the accounts list in the AccountsForm
+                ((AccountsForm)this.Owner).RefreshAccounts();
+            }
+            else
+            {
+                // The transaction failed (e.g., not enough funds), show an error message
+                MessageBox.Show("The transaction could not be completed.");
+            }
+        }
+
+        public void RefreshTransactionHistory()
+        {
+            LoadTransactionHistory();
+        }
+
+        
     }
 }

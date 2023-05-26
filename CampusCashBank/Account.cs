@@ -15,7 +15,7 @@ namespace CampusCashBank
         public int AccountID { get; set; }
         public int UserID { get; set; }
         public string AccountName { get; set; }
-        public decimal Balance { get; set; } 
+        public decimal Balance { get; set; }
         public decimal? NegativeLimit { get; set; }
 
         public List<Transaction> GetTransactionHistory()
@@ -23,10 +23,6 @@ namespace CampusCashBank
             Database db = new Database();
             return db.GetTransactionHistory(this.AccountID);
         }
-
-
     }
-
-
-
 }
+

@@ -38,6 +38,7 @@
             txtPassword = new TextBox();
             btnSignup = new Button();
             goToLoginPageButton = new Button();
+            label1 = new Label();
             SuspendLayout();
             // 
             // FirstName
@@ -124,11 +125,22 @@
             goToLoginPageButton.UseVisualStyleBackColor = true;
             goToLoginPageButton.Click += button1_Click;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Arial Rounded MT Bold", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(26, 18);
+            label1.Name = "label1";
+            label1.Size = new Size(158, 27);
+            label1.TabIndex = 10;
+            label1.Text = "Sign up Page";
+            // 
             // SignupForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(label1);
             Controls.Add(goToLoginPageButton);
             Controls.Add(btnSignup);
             Controls.Add(txtPassword);
@@ -158,5 +170,6 @@
         private TextBox txtPassword;
         private Button btnSignup;
         private Button goToLoginPageButton;
+        private Label label1;
     }
 }

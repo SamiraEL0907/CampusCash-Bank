@@ -33,6 +33,7 @@
             label2 = new Label();
             txtEmail = new TextBox();
             txtPassword = new TextBox();
+            label3 = new Label();
             SuspendLayout();
             // 
             // btnLogin
@@ -78,11 +79,22 @@
             txtPassword.TabIndex = 4;
             txtPassword.UseSystemPasswordChar = true;
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Arial Rounded MT Bold", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
+            label3.Location = new Point(25, 26);
+            label3.Name = "label3";
+            label3.Size = new Size(137, 27);
+            label3.TabIndex = 5;
+            label3.Text = "Login Page";
+            // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(label3);
             Controls.Add(txtPassword);
             Controls.Add(txtEmail);
             Controls.Add(label2);
@@ -90,7 +102,6 @@
             Controls.Add(btnLogin);
             Name = "LoginForm";
             Text = "Form2";
-          
             ResumeLayout(false);
             PerformLayout();
         }
@@ -103,5 +114,6 @@
         private TextBox txtEmail;
         private TextBox txtPassword;
         private FlowLayoutPanel flowLayoutPanel1;
+        private Label label3;
     }
 }

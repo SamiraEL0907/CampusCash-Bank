@@ -8,3 +8,5 @@ C:\Users\elbou\source\repos\CampusCashBank\obj\Debug\net7.0-windows\CampusCashBa
 C:\Users\elbou\source\repos\CampusCashBank\obj\Debug\net7.0-windows\CampusCashBank.AssemblyInfoInputs.cache
 C:\Users\elbou\source\repos\CampusCashBank\obj\Debug\net7.0-windows\CampusCashBank.AssemblyInfo.cs
 C:\Users\elbou\source\repos\CampusCashBank\obj\Debug\net7.0-windows\CampusCashBank.csproj.CoreCompileInputs.cache
+C:\Users\elbou\source\repos\CampusCashBank\obj\Debug\net7.0-windows\CampusCashBank.AccountsForm.resources
+C:\Users\elbou\source\repos\CampusCashBank\obj\Debug\net7.0-windows\CampusCashBank.TransferForm.resources

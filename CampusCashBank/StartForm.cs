@@ -23,12 +23,6 @@ namespace CampusCashBank
             this.Hide();
         }
 
-        private void adminButton_Click(object sender, EventArgs e)
-        {
-            var adminForm = new AdminForm();
-            adminForm.Show();
-            this.Hide();
-        }
 
 
         private void btnTestConnection_Click(object sender, EventArgs e)
@@ -37,5 +31,14 @@ namespace CampusCashBank
             string result = db.TestConnection();
             MessageBox.Show(result);
         }
+
+        private void adminSignUpButton_Click(object sender, EventArgs e)
+        {
+            var adminSignUpForm = new AdminSignUp();
+            adminSignUpForm.Show();
+            this.Hide();
+        }
+
+
     }
 }
