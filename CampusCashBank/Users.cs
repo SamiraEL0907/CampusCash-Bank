@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 
 namespace CampusCashBank
 {
@@ -18,6 +19,7 @@ namespace CampusCashBank
         public string ProfilePicture { get; set; }
 
         public Database Database { get; set; }
+        public bool IsActive { get; set; }
 
         public Users()
         {
@@ -30,17 +32,22 @@ namespace CampusCashBank
             return BCrypt.Net.BCrypt.HashPassword(password);
         }
 
-        public bool ValidateUser(string email, string password)
+        public int ValidateUserLogin(string email, string password)
         {
             Users user = Database.GetUserByEmail(email);
             if (user == null)
             {
                 // No user with the given email exists in the database
-                return false;
+                return -1; // user not found
+            }
+            else if (!user.IsActive)
+            {
+                // User is not active
+                return 0; // user inactive
             }
             else
             {
-                // Use the BCrypt Verify method to compare the provided password with the stored password
+                // Check password
                 bool isValidPassword = BCrypt.Net.BCrypt.Verify(password, user.Password);
                 if (isValidPassword)
                 {
@@ -51,10 +58,17 @@ namespace CampusCashBank
                     this.FirstName = user.FirstName;
                     this.LastName = user.LastName;
                     this.ProfilePicture = user.ProfilePicture;
+                    this.IsActive = user.IsActive;
+                    return 1; // user active and password correct
                 }
-                return isValidPassword;
+                else
+                {
+                    return -2; // password incorrect
+                }
             }
         }
+
+
 
 
         public bool AddAccount(string accountName, decimal balance, decimal? negativeLimit)
@@ -68,6 +82,47 @@ namespace CampusCashBank
             Database db = new Database();
             return db.GetAccountById(accountId);
         }
+
+        public List<Account> GetAccounts()
+        {
+            DataTable accountTable = Database.GetAccountsDataTableByUserID(this.UserID);
+            List<Account> accounts = new List<Account>();
+            foreach (DataRow row in accountTable.Rows)
+            {
+                accounts.Add(new Account(row));
+            }
+            return accounts;
+        }
+
+        //forgot password 
+
+        public bool UpdateUserPassword(int userId, string newPassword)
+        {
+            // Hash the new password
+            string hashedPassword = HashPassword(newPassword);
+
+            // Call the Database method to update the user's password
+            return Database.UpdateUserPassword(userId, hashedPassword);
+        }
+
+        //photo
+
+        public bool UpdateUserPicture(int userId, string base64Image)
+        {
+            Database db = new Database();
+            return db.UpdateUserPicture(userId, base64Image);
+        }
+
+        public string GetUserProfilePicture(int userId)
+        {
+            Database db = new Database();
+            return db.GetUserProfilePicture(userId);
+        }
+
+
+
+
+
 
     }
 }

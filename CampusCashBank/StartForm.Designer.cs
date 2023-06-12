@@ -97,6 +97,7 @@
             Name = "StartForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "StartForm";
+           
             ResumeLayout(false);
             PerformLayout();
         }

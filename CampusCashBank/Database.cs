@@ -7,6 +7,7 @@ using MySql.Data.MySqlClient;
 using System.Security.Cryptography;
 using System.Data;
 using System.Text;
+using Microsoft.VisualBasic.ApplicationServices;
 
 
 namespace CampusCashBank
@@ -61,20 +62,7 @@ namespace CampusCashBank
             CloseConnection();
         }
 
-        public string TestConnection()
-        {
-            try
-            {
-                OpenConnection();
-                CloseConnection();
-                return "Connection to the database is successful.";
-            }
-            catch (Exception ex)
-            {
-                return $"Error: {ex.Message}";
-            }
-        }
-
+    
         public string HashPassword(string password)
         {
             // Use the bcrypt hashing algorithm to hash the password
@@ -107,32 +95,176 @@ namespace CampusCashBank
             cmd.Parameters.AddWithValue("@Email", email);
             connection.Open();
             MySqlDataReader reader = cmd.ExecuteReader();
+
+            if (!reader.HasRows)
+            {
+                MessageBox.Show("No user found with this email: " + email); // Debugging line
+            }
+
             if (reader.Read())
             {
                 user = new Users();
                 user.UserID = reader.GetInt32(reader.GetOrdinal("UserID"));
-                user.Email = reader.GetString(reader.GetOrdinal("Email"));
-                user.Password = reader.GetString(reader.GetOrdinal("Password"));
-                user.FirstName = reader.GetString(reader.GetOrdinal("FirstName"));
-                user.LastName = reader.GetString(reader.GetOrdinal("LastName"));
-                user.ProfilePicture = reader.GetString(reader.GetOrdinal("ProfilePicture"));
+                user.Email = reader.IsDBNull(reader.GetOrdinal("Email")) ? null : reader.GetString("Email");
+                user.Password = reader.IsDBNull(reader.GetOrdinal("Password")) ? null : reader.GetString("Password");
+                user.FirstName = reader.IsDBNull(reader.GetOrdinal("FirstName")) ? null : reader.GetString("FirstName");
+                user.LastName = reader.IsDBNull(reader.GetOrdinal("LastName")) ? null : reader.GetString("LastName");
+                user.ProfilePicture = reader.IsDBNull(reader.GetOrdinal("ProfilePicture")) ? null : reader.GetString("ProfilePicture");
+                user.IsActive = reader.IsDBNull(reader.GetOrdinal("IsActive")) ? false : reader.GetBoolean("IsActive");
             }
+
             reader.Close();
             connection.Close();
             return user;
         }
 
+        //Forgot password 
+
+        public Users GetUserByEmailAndId(string email, int userId)
+        {
+            Users user = null;
+
+            // Open the connection
+            OpenConnection();
+
+            // Create a query to select the user with the provided email and ID
+            string query = "SELECT * FROM Users WHERE Email = @email AND UserId = @userId";
+
+            // Create MySqlCommand
+            using (MySqlCommand cmd = new MySqlCommand(query, connection))
+            {
+                // Add parameters
+                cmd.Parameters.AddWithValue("@email", email);
+                cmd.Parameters.AddWithValue("@userId", userId);
+
+                // Execute the query
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    // Check if reader has any rows
+                    if (reader.Read())
+                    {
+                        user = new Users()
+                        {
+                            UserID = reader.GetInt32("UserID"),
+                            Email = reader.IsDBNull(reader.GetOrdinal("Email")) ? null : reader.GetString("Email"),
+                            Password = reader.IsDBNull(reader.GetOrdinal("Password")) ? null : reader.GetString("Password"),
+                            FirstName = reader.IsDBNull(reader.GetOrdinal("FirstName")) ? null : reader.GetString("FirstName"),
+                            LastName = reader.IsDBNull(reader.GetOrdinal("LastName")) ? null : reader.GetString("LastName"),
+                            ProfilePicture = reader.IsDBNull(reader.GetOrdinal("ProfilePicture")) ? null : reader.GetString("ProfilePicture"),
+                            IsActive = reader.IsDBNull(reader.GetOrdinal("IsActive")) ? false : reader.GetBoolean("IsActive")
+                        };
+                    }
+                }
+            }
+
+            // Close the connection
+            CloseConnection();
+
+            // Return the user
+            return user;
+        }
+
+
+
+
+        public bool UpdateUserPassword(int userId, string hashedPassword)
+        {
+            // Open the connection
+            OpenConnection();
+
+            // Create a query to update the user's password
+            string query = "UPDATE Users SET Password = @password WHERE UserID = @userID";
+
+            // Create MySqlCommand
+            using (MySqlCommand cmd = new MySqlCommand(query, connection))
+            {
+                // Add parameters
+                cmd.Parameters.AddWithValue("@password", hashedPassword);
+                cmd.Parameters.AddWithValue("@userID", userId);
+
+                // Execute the query
+                cmd.ExecuteNonQuery();
+            }
+
+            // Close the connection
+            CloseConnection();
+
+            return true;
+        }
+
+        //photo uploading 
+
+        public bool UpdateUserPicture(int userId, string base64Image)
+        {
+            bool result = false;
+
+            try
+            {
+                this.OpenConnection();
+
+                string query = "UPDATE Users SET ProfilePicture = @ProfilePicture WHERE UserID = @UserId";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, this.connection))
+                {
+                    cmd.Parameters.AddWithValue("@ProfilePicture", base64Image);
+                    cmd.Parameters.AddWithValue("@UserId", userId);
+
+                    int rowsUpdated = cmd.ExecuteNonQuery();
+                    result = rowsUpdated > 0;
+                }
+
+                this.CloseConnection();
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as necessary
+            }
+
+            return result;
+        }
+
+        public string GetUserProfilePicture(int userId)
+        {
+            string result = null;
+
+            try
+            {
+                this.OpenConnection();
+
+                string query = "SELECT ProfilePicture FROM Users WHERE UserID = @UserId";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, this.connection))
+                {
+                    cmd.Parameters.AddWithValue("@UserId", userId);
+
+                    object queryResult = cmd.ExecuteScalar();
+
+                    if (queryResult != DBNull.Value)
+                    {
+                        result = (string)queryResult;
+                    }
+                }
+
+                this.CloseConnection();
+            }
+            catch (Exception ex)
+            {
+               
+            }
+
+            return result;
+        }
+
+
+        //Account class
 
         public List<Account> GetAccountsByUserID(int userID)
-        {
-            List<Account> accounts = new List<Account>();
-
-            string query = "SELECT * FROM Accounts WHERE UserID = @UserID";
-
-            MySqlCommand cmd = new MySqlCommand(query, connection);
-            cmd.Parameters.AddWithValue("@UserID", userID);
-
-            connection.Open();
+    {
+        List<Account> accounts = new List<Account>();
+        string query = "SELECT * FROM Accounts WHERE UserID = @UserID";
+        MySqlCommand cmd = new MySqlCommand(query, connection);
+        cmd.Parameters.AddWithValue("@UserID", userID);
+        connection.Open();
 
             MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -181,6 +313,8 @@ namespace CampusCashBank
 
             return rowsAffected > 0;
         }
+
+        // this is for Accountsclass 
 
         public Account GetAccountById(int accountId)
         {
@@ -306,6 +440,8 @@ namespace CampusCashBank
 
         }
 
+        //this is for the admin 
+
         public Admin GetAdminByEmail(string email)
         {
             try
@@ -367,9 +503,7 @@ namespace CampusCashBank
 
         public DataTable GetAccountsDataTableByUserID(int userID)
         {
-            MySqlConnection connection = new MySqlConnection(connectionString);
-            string query = "SELECT * FROM Account WHERE UserID = @userID";
-
+            string query = "SELECT * FROM Accounts WHERE UserID = @userID";
             MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@userID", userID);
 
@@ -380,8 +514,67 @@ namespace CampusCashBank
             adapter.Fill(dataTable);
 
             connection.Close();
+
             return dataTable;
         }
+
+        public DataTable GetUserDataById(int userId)
+        {
+            string query = "SELECT * FROM Users WHERE UserID = @userID";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@userID", userId);
+
+            connection.Open();
+
+            MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+            DataTable dataTable = new DataTable();
+            adapter.Fill(dataTable);
+
+            connection.Close();
+
+            return dataTable;
+        }
+
+        public bool DeleteUser(int userId)
+        {
+            string query = "UPDATE Users SET IsActive = 0 WHERE UserID = @userID";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@userID", userId);
+
+            connection.Open();
+            int rowsAffected = command.ExecuteNonQuery();
+            connection.Close();
+
+            return rowsAffected > 0;
+        }
+
+
+        public bool AddUser(Users user)
+        {
+            // Hash the password before storing it
+            string hashedPassword = user.HashPassword(user.Password);
+
+            string query = "INSERT INTO Users (FirstName, LastName, Email, Password, IsActive) VALUES (@FirstName, @LastName, @Email, @Password, @IsActive)";
+
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
+            cmd.Parameters.AddWithValue("@LastName", user.LastName);
+            cmd.Parameters.AddWithValue("@Email", user.Email);
+            cmd.Parameters.AddWithValue("@Password", hashedPassword);
+            cmd.Parameters.AddWithValue("@IsActive", true);
+
+            connection.Open();
+
+            int rowsAffected = cmd.ExecuteNonQuery();
+
+            connection.Close();
+
+            return rowsAffected > 0;
+        }
+
+
+
+
 
 
 

@@ -42,6 +42,11 @@ namespace CampusCashBank
             }
         }
 
-
+        private void StartPage_Click(object sender, EventArgs e)
+        {
+            var Sartform = new StartForm();
+            Sartform.Show();
+            this.Hide();
+        }
     }
 }

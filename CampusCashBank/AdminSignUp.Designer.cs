@@ -34,6 +34,7 @@
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
+            StartPage = new Button();
             SuspendLayout();
             // 
             // btnSignIn
@@ -83,19 +84,30 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Font = new Font("Arial Rounded MT Bold", 16.2F, FontStyle.Regular, GraphicsUnit.Point);
+            label3.Font = new Font("Showcard Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
             label3.Location = new Point(33, 31);
             label3.Name = "label3";
-            label3.Size = new Size(209, 32);
+            label3.Size = new Size(85, 29);
             label3.TabIndex = 5;
-            label3.Text = "Admin sign up";
+            label3.Text = "Admin";
+            // 
+            // StartPage
+            // 
+            StartPage.Location = new Point(586, 31);
+            StartPage.Name = "StartPage";
+            StartPage.Size = new Size(94, 29);
+            StartPage.TabIndex = 6;
+            StartPage.Text = "StartPage";
+            StartPage.UseVisualStyleBackColor = true;
+            StartPage.Click += StartPage_Click;
             // 
             // AdminSignUp
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(255, 192, 255);
+            BackColor = Color.Silver;
             ClientSize = new Size(757, 468);
+            Controls.Add(StartPage);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -116,5 +128,6 @@
         private Label label1;
         private Label label2;
         private Label label3;
+        private Button StartPage;
     }
 }

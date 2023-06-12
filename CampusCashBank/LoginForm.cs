@@ -23,21 +23,41 @@ namespace CampusCashBank
             string password = txtPassword.Text;
 
             Users user = new Users();
-            if (user.ValidateUser(email, password))
+            int loginStatus = user.ValidateUserLogin(email, password);
+            switch (loginStatus)
             {
-                // Login successful
-                AccountsForm accountsForm = new AccountsForm(user); // Pass the user object to the AccountsForm
-                accountsForm.Show();
-                this.Hide();
-            }
-            else
-            {
-                // Login failed
-                MessageBox.Show("Invalid email or password. Please try again.", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtPassword.Clear();
+                case 1: // Login successful
+                    AccountsForm accountsForm = new AccountsForm(user); // Pass the user object to the AccountsForm
+                    accountsForm.Show();
+                    this.Hide();
+                    break;
+
+                case -1: // User not found
+                case -2: // Password incorrect
+                    MessageBox.Show("Invalid email or password. Please try again.", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtPassword.Clear();
+                    break;
+
+                case 0: // User inactive
+                    MessageBox.Show("Your account is inactive. Please contact the administrator.", "Inactive User", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtPassword.Clear();
+                    break;
             }
         }
 
 
+        private void StartPage_Click(object sender, EventArgs e)
+        {
+            var Sartform = new StartForm();
+            Sartform.Show();
+            this.Hide();
+        }
+
+        private void btnForgotPassword_Click(object sender, EventArgs e)
+        {
+           
+            PasswordResetForm passwordResetForm = new PasswordResetForm();
+            passwordResetForm.Show();
+        }
     }
 }

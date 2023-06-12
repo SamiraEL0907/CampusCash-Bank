@@ -37,6 +37,8 @@
             label3 = new Label();
             lvUserAccounts = new ListView();
             label4 = new Label();
+            BtnEditSettings = new Button();
+            Exit = new Button();
             SuspendLayout();
             // 
             // btnAdd
@@ -123,12 +125,37 @@
             label4.TabIndex = 9;
             label4.Text = "Accounts Overview";
             // 
+            // BtnEditSettings
+            // 
+            BtnEditSettings.BackColor = Color.White;
+            BtnEditSettings.Location = new Point(1023, 12);
+            BtnEditSettings.Name = "BtnEditSettings";
+            BtnEditSettings.Size = new Size(124, 29);
+            BtnEditSettings.TabIndex = 10;
+            BtnEditSettings.Text = "Edit settings";
+            BtnEditSettings.UseVisualStyleBackColor = false;
+            BtnEditSettings.Click += BtnEditSettings_Click;
+            // 
+            // Exit
+            // 
+            Exit.BackColor = Color.White;
+            Exit.ForeColor = Color.Black;
+            Exit.Location = new Point(879, 12);
+            Exit.Name = "Exit";
+            Exit.Size = new Size(119, 29);
+            Exit.TabIndex = 11;
+            Exit.Text = "Exit";
+            Exit.UseVisualStyleBackColor = false;
+            Exit.Click += Exit_Click;
+            // 
             // AccountsForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.SlateGray;
             ClientSize = new Size(1209, 509);
+            Controls.Add(Exit);
+            Controls.Add(BtnEditSettings);
             Controls.Add(label4);
             Controls.Add(lvUserAccounts);
             Controls.Add(label3);
@@ -157,5 +184,7 @@
         private ListView lvAccounts;
         private ListView lvUserAccounts;
         private Label label4;
+        private Button BtnEditSettings;
+        private Button Exit;
     }
 }

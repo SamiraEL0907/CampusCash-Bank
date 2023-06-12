@@ -100,9 +100,22 @@ namespace CampusCashBank
         {
             LoadAccounts();
         }
+        private void BtnEditSettings_Click(object sender, EventArgs e)
+        {
+            // Get the ID of the currently logged-in user.
+            int userId = this._currentUser.UserID;
 
+            // Pass the user ID to the SettingsForm constructor.
+            SettingsForm settingsForm = new SettingsForm(userId);
 
+            settingsForm.Show();
+        }
 
-
+        private void Exit_Click(object sender, EventArgs e)
+        {
+            var Sartform = new StartForm();
+            Sartform.Show();
+            this.Hide();
+        }
     }
 }

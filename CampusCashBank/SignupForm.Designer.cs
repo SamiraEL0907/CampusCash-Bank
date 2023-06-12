@@ -39,6 +39,7 @@
             btnSignup = new Button();
             goToLoginPageButton = new Button();
             label1 = new Label();
+            StartPage = new Button();
             SuspendLayout();
             // 
             // FirstName
@@ -107,7 +108,7 @@
             // 
             // btnSignup
             // 
-            btnSignup.Location = new Point(187, 317);
+            btnSignup.Location = new Point(265, 304);
             btnSignup.Name = "btnSignup";
             btnSignup.Size = new Size(94, 29);
             btnSignup.TabIndex = 8;
@@ -117,29 +118,41 @@
             // 
             // goToLoginPageButton
             // 
-            goToLoginPageButton.Location = new Point(583, 18);
+            goToLoginPageButton.Location = new Point(468, 22);
             goToLoginPageButton.Name = "goToLoginPageButton";
-            goToLoginPageButton.Size = new Size(166, 29);
+            goToLoginPageButton.Size = new Size(141, 29);
             goToLoginPageButton.TabIndex = 9;
-            goToLoginPageButton.Text = "Go To Login Page";
+            goToLoginPageButton.Text = "Login Page";
             goToLoginPageButton.UseVisualStyleBackColor = true;
             goToLoginPageButton.Click += button1_Click;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Arial Rounded MT Bold", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Font = new Font("Showcard Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
             label1.Location = new Point(26, 18);
             label1.Name = "label1";
-            label1.Size = new Size(158, 27);
+            label1.Size = new Size(99, 29);
             label1.TabIndex = 10;
-            label1.Text = "Sign up Page";
+            label1.Text = "Sign up";
+            // 
+            // StartPage
+            // 
+            StartPage.Location = new Point(625, 22);
+            StartPage.Name = "StartPage";
+            StartPage.Size = new Size(109, 29);
+            StartPage.TabIndex = 11;
+            StartPage.Text = "StartPage";
+            StartPage.UseVisualStyleBackColor = true;
+            StartPage.Click += StartPage_Click;
             // 
             // SignupForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Teal;
             ClientSize = new Size(800, 450);
+            Controls.Add(StartPage);
             Controls.Add(label1);
             Controls.Add(goToLoginPageButton);
             Controls.Add(btnSignup);
@@ -153,7 +166,6 @@
             Controls.Add(FirstName);
             Name = "SignupForm";
             Text = "SignupForm";
-            Load += SignupForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -171,5 +183,6 @@
         private Button btnSignup;
         private Button goToLoginPageButton;
         private Label label1;
+        private Button StartPage;
     }
 }

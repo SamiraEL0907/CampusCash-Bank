@@ -4,16 +4,28 @@
     <Compile Update="AccountsForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="AdminForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="AdminSignUp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AddUserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AdminTransactionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="PasswordResetForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="UserAccountForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="SignupForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="AdminForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="StartForm.cs">

@@ -39,6 +39,11 @@
             txtReceiverAccountId = new TextBox();
             label2 = new Label();
             label1 = new Label();
+            label3 = new Label();
+            cboReceiverAccount = new ComboBox();
+            txtAmountAutomaticTransfer = new TextBox();
+            txtFrequency = new TextBox();
+            btnAutomaticTransfer = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvTransactionHistory).BeginInit();
             SuspendLayout();
             // 
@@ -135,12 +140,59 @@
             label1.TabIndex = 6;
             label1.Text = "Add new transfer";
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Showcard Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
+            label3.Location = new Point(1246, 116);
+            label3.Name = "label3";
+            label3.Size = new Size(260, 29);
+            label3.TabIndex = 7;
+            label3.Text = "Automatic Transfer";
+            // 
+            // cboReceiverAccount
+            // 
+            cboReceiverAccount.FormattingEnabled = true;
+            cboReceiverAccount.Location = new Point(1246, 169);
+            cboReceiverAccount.Name = "cboReceiverAccount";
+            cboReceiverAccount.Size = new Size(260, 28);
+            cboReceiverAccount.TabIndex = 8;
+            // 
+            // txtAmountAutomaticTransfer
+            // 
+            txtAmountAutomaticTransfer.Location = new Point(1289, 227);
+            txtAmountAutomaticTransfer.Name = "txtAmountAutomaticTransfer";
+            txtAmountAutomaticTransfer.Size = new Size(151, 27);
+            txtAmountAutomaticTransfer.TabIndex = 9;
+            // 
+            // txtFrequency
+            // 
+            txtFrequency.Location = new Point(1289, 284);
+            txtFrequency.Name = "txtFrequency";
+            txtFrequency.Size = new Size(151, 27);
+            txtFrequency.TabIndex = 10;
+            // 
+            // btnAutomaticTransfer
+            // 
+            btnAutomaticTransfer.Location = new Point(1307, 349);
+            btnAutomaticTransfer.Name = "btnAutomaticTransfer";
+            btnAutomaticTransfer.Size = new Size(122, 33);
+            btnAutomaticTransfer.TabIndex = 11;
+            btnAutomaticTransfer.Text = "Send";
+            btnAutomaticTransfer.UseVisualStyleBackColor = true;
+          
+            // 
             // TransferForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Silver;
-            ClientSize = new Size(1283, 709);
+            ClientSize = new Size(1559, 709);
+            Controls.Add(btnAutomaticTransfer);
+            Controls.Add(txtFrequency);
+            Controls.Add(txtAmountAutomaticTransfer);
+            Controls.Add(cboReceiverAccount);
+            Controls.Add(label3);
             Controls.Add(label1);
             Controls.Add(label2);
             Controls.Add(txtReceiverAccountId);
@@ -149,7 +201,6 @@
             Controls.Add(dgvTransactionHistory);
             Name = "TransferForm";
             Text = "Form1";
-           
             ((System.ComponentModel.ISupportInitialize)dgvTransactionHistory).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -168,5 +219,10 @@
         private TextBox txtReceiverAccountId;
         private Label label2;
         private Label label1;
+        private Label label3;
+        private ComboBox cboReceiverAccount;
+        private TextBox txtAmountAutomaticTransfer;
+        private TextBox txtFrequency;
+        private Button btnAutomaticTransfer;
     }
 }

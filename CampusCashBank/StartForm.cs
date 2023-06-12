@@ -25,12 +25,6 @@ namespace CampusCashBank
 
 
 
-        private void btnTestConnection_Click(object sender, EventArgs e)
-        {
-            Database db = new Database();
-            string result = db.TestConnection();
-            MessageBox.Show(result);
-        }
 
         private void adminSignUpButton_Click(object sender, EventArgs e)
         {
@@ -39,6 +33,6 @@ namespace CampusCashBank
             this.Hide();
         }
 
-
+       
     }
 }

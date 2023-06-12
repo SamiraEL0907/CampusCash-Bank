@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.VisualBasic.ApplicationServices;
+using System.Data;
 
 namespace CampusCashBank
 {
@@ -17,6 +18,17 @@ namespace CampusCashBank
         public string AccountName { get; set; }
         public decimal Balance { get; set; }
         public decimal? NegativeLimit { get; set; }
+
+        public Account() { }
+
+        public Account(DataRow row)
+        {
+            AccountID = Convert.ToInt32(row["AccountID"]);
+            UserID = Convert.ToInt32(row["UserID"]);
+            AccountName = row["AccountName"].ToString();
+            Balance = Convert.ToDecimal(row["Balance"]);
+            NegativeLimit = row["NegativeLimit"] as decimal?;
+        }
 
         public List<Transaction> GetTransactionHistory()
         {

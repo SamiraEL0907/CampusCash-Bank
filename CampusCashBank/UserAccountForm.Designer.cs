@@ -28,35 +28,55 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView1 = new DataGridView();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            listViewAccounts = new ListView();
+            AccountID = new ColumnHeader();
+            AccountName = new ColumnHeader();
+            AccountBalance = new ColumnHeader();
             SuspendLayout();
             // 
-            // dataGridView1
+            // listViewAccounts
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 128);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.RowTemplate.Height = 29;
-            dataGridView1.Size = new Size(560, 346);
-            dataGridView1.TabIndex = 0;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            listViewAccounts.Columns.AddRange(new ColumnHeader[] { AccountID, AccountName, AccountBalance });
+            listViewAccounts.FullRowSelect = true;
+            listViewAccounts.Location = new Point(12, 110);
+            listViewAccounts.Name = "listViewAccounts";
+            listViewAccounts.Size = new Size(700, 364);
+            listViewAccounts.TabIndex = 0;
+            listViewAccounts.UseCompatibleStateImageBehavior = false;
+            listViewAccounts.View = View.Details;
+            // 
+            // AccountID
+            // 
+            AccountID.Text = "AccountID";
+            AccountID.Width = 150;
+            // 
+            // AccountName
+            // 
+            AccountName.Text = "AccountName";
+            AccountName.Width = 150;
+            // 
+            // AccountBalance
+            // 
+            AccountBalance.Text = "AccountBalance";
+            AccountBalance.Width = 150;
             // 
             // UserAccountsForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(902, 486);
-            Controls.Add(dataGridView1);
+            Controls.Add(listViewAccounts);
             Name = "UserAccountsForm";
             Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+          
             ResumeLayout(false);
         }
 
         #endregion
 
-        private DataGridView dataGridView1;
+        private ListView listViewAccounts;
+        private ColumnHeader AccountID;
+        private ColumnHeader AccountName;
+        private ColumnHeader AccountBalance;
     }
 }

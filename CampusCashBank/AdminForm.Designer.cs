@@ -28,20 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridViewUsers = new DataGridView();
             label1 = new Label();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewUsers).BeginInit();
+            listViewUsers = new ListView();
+            UserID = new ColumnHeader();
+            Email = new ColumnHeader();
+            FirstName = new ColumnHeader();
+            LastName = new ColumnHeader();
+            btnDeleteUser = new Button();
+            BtnAddUser = new Button();
+            Exit = new Button();
             SuspendLayout();
-            // 
-            // dataGridViewUsers
-            // 
-            dataGridViewUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewUsers.Location = new Point(12, 144);
-            dataGridViewUsers.Name = "dataGridViewUsers";
-            dataGridViewUsers.RowHeadersWidth = 51;
-            dataGridViewUsers.RowTemplate.Height = 29;
-            dataGridViewUsers.Size = new Size(677, 322);
-            dataGridViewUsers.TabIndex = 0;
             // 
             // label1
             // 
@@ -53,23 +49,94 @@
             label1.TabIndex = 1;
             label1.Text = "Users";
             // 
+            // listViewUsers
+            // 
+            listViewUsers.Columns.AddRange(new ColumnHeader[] { UserID, Email, FirstName, LastName });
+            listViewUsers.FullRowSelect = true;
+            listViewUsers.Location = new Point(17, 150);
+            listViewUsers.Name = "listViewUsers";
+            listViewUsers.Size = new Size(758, 316);
+            listViewUsers.TabIndex = 2;
+            listViewUsers.UseCompatibleStateImageBehavior = false;
+            listViewUsers.View = View.Details;
+            listViewUsers.Click += listViewUsers_DoubleClick;
+            // 
+            // UserID
+            // 
+            UserID.Text = "UserID";
+            // 
+            // Email
+            // 
+            Email.Text = "Email";
+            Email.Width = 350;
+            // 
+            // FirstName
+            // 
+            FirstName.Text = "FirstName";
+            FirstName.Width = 150;
+            // 
+            // LastName
+            // 
+            LastName.Text = "LastName";
+            LastName.Width = 150;
+            // 
+            // btnDeleteUser
+            // 
+            btnDeleteUser.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            btnDeleteUser.Location = new Point(914, 167);
+            btnDeleteUser.Name = "btnDeleteUser";
+            btnDeleteUser.Size = new Size(117, 41);
+            btnDeleteUser.TabIndex = 3;
+            btnDeleteUser.Text = "Delete User";
+            btnDeleteUser.UseVisualStyleBackColor = true;
+            btnDeleteUser.Click += btnDeleteUser_Click;
+            // 
+            // BtnAddUser
+            // 
+            BtnAddUser.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+            BtnAddUser.Location = new Point(914, 237);
+            BtnAddUser.Name = "BtnAddUser";
+            BtnAddUser.Size = new Size(117, 45);
+            BtnAddUser.TabIndex = 4;
+            BtnAddUser.Text = "Add User";
+            BtnAddUser.UseVisualStyleBackColor = true;
+            BtnAddUser.Click += BtnAddUser_Click;
+            // 
+            // Exit
+            // 
+            Exit.Location = new Point(1030, 12);
+            Exit.Name = "Exit";
+            Exit.Size = new Size(94, 29);
+            Exit.TabIndex = 5;
+            Exit.Text = "Exit";
+            Exit.UseVisualStyleBackColor = true;
+            Exit.Click += Exit_Click;
+            // 
             // AdminForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1184, 478);
+            Controls.Add(Exit);
+            Controls.Add(BtnAddUser);
+            Controls.Add(btnDeleteUser);
+            Controls.Add(listViewUsers);
             Controls.Add(label1);
-            Controls.Add(dataGridViewUsers);
             Name = "AdminForm";
             Text = "AdminForm";
-            ((System.ComponentModel.ISupportInitialize)dataGridViewUsers).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private DataGridView dataGridViewUsers;
         private Label label1;
+        private ListView listViewUsers;
+        private ColumnHeader UserID;
+        private ColumnHeader Email;
+        private ColumnHeader FirstName;
+        private ColumnHeader LastName;
+        private Button btnDeleteUser;
+        private Button BtnAddUser;
+        private Button Exit;
     }
 }
